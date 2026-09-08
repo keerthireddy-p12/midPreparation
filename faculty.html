@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Registration Form</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background-color: lightblue;
+        }
+
+        .container{
+            width:410px;
+            margin:40px auto;
+            background:white;
+            padding:20px;
+            border-radius:8px;
+            box-shadow:0 0 10px gray;
+        }
+
+        h2{
+            text-align:center;
+        }
+
+        label{
+            display:block;
+            margin-top:10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"]{
+            width:100%;
+            padding:8px;
+            margin-top:5px;
+            box-sizing:border-box;
+        }
+
+        .error{
+            color:red;
+            font-size:14px;
+        }
+
+        #successMsg{
+            color:green;
+            font-size:16px;
+            font-weight:bold;
+            margin-top:15px;
+            text-align:center;
+        }
+
+        button{
+            margin-top:15px;
+            padding:8px 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Employee Registration Form</h2>
+
+<form onsubmit="return validateForm()">
+
+<label>Employee Name</label>
+<input type="text" id="ename">
+<div class="error" id="enameErr"></div>
+
+<label>Employee ID</label>
+<input type="text" id="empid">
+<div class="error" id="empidErr"></div>
+
+<label>Department</label>
+<input type="text" id="dept">
+<div class="error" id="deptErr"></div>
+
+<label>Email</label>
+<input type="email" id="email">
+<div class="error" id="emailErr"></div>
+
+<label>Mobile Number</label>
+<input type="number" id="mobile">
+<div class="error" id="mobileErr"></div>
+
+<h1>Home</h1>
+
+<label>Gender</label>
+<input type="radio" name="gender" value="Male"> Male
+<input type="radio" name="gender" value="Female"> Female
+<div class="error" id="genderErr"></div>
+
+<br>
+
+<button type="submit">Submit Registration Form</button>
+<button type="reset" onclick="clearMessages()">Reset</button>
+
+<div id="successMsg"></div>
+
+</form>
+
+</div>
+
+<script>
+
+function validateForm(){
+
+    let ename = document.getElementById("ename").value;
+    let empid = document.getElementById("empid").value;
+    let dept = document.getElementById("dept").value;
+    let email = document.getElementById("email").value;
+    let mobile = document.getElementById("mobile").value;
+    let gender = document.querySelector('input[name="gender"]:checked');
+
+    let valid = true;
+
+    document.getElementById("enameErr").innerHTML = "";
+    document.getElementById("empidErr").innerHTML = "";
+    document.getElementById("deptErr").innerHTML = "";
+    document.getElementById("emailErr").innerHTML = "";
+    document.getElementById("mobileErr").innerHTML = "";
+    document.getElementById("genderErr").innerHTML = "";
+    document.getElementById("successMsg").innerHTML = "";
+
+    if(ename == ""){
+        document.getElementById("enameErr").innerHTML = "Please enter employee name";
+        valid = false;
+    }
+
+    if(empid == ""){
+        document.getElementById("empidErr").innerHTML = "Please enter employee ID";
+        valid = false;
+    }
+
+    if(dept == ""){
+        document.getElementById("deptErr").innerHTML = "Please enter department";
+        valid = false;
+    }
+
+    if(mobile == ""){
+        document.getElementById("mobileErr").innerHTML = "Please enter mobile number";
+        valid = false;
+    }
+    else if(!/^[0-9]{10}$/.test(mobile)){
+        document.getElementById("mobileErr").innerHTML = "Mobile number must be exactly 10 digits";
+        valid = false;
+    }
+
+    if(email == ""){
+        document.getElementById("emailErr").innerHTML = "Please enter email";
+        valid = false;
+    }
+    else if(email.indexOf("@") == -1 || email.indexOf(".") == -1){
+        document.getElementById("emailErr").innerHTML = "Enter a valid email (example@gmail.com)";
+        valid = false;
+    }
+
+    if(!gender){
+        document.getElementById("genderErr").innerHTML = "Please select your gender";
+        valid = false;
+    }
+
+    if(valid){
+        document.getElementById("successMsg").innerHTML = "Employee Registration Successful!";
+    }
+
+    return false;
+}
+
+function clearMessages(){
+    document.getElementById("enameErr").innerHTML = "";
+    document.getElementById("empidErr").innerHTML = "";
+    document.getElementById("deptErr").innerHTML = "";
+    document.getElementById("emailErr").innerHTML = "";
+    document.getElementById("mobileErr").innerHTML = "";
+    document.getElementById("genderErr").innerHTML = "";
+    document.getElementById("successMsg").innerHTML = "";
+}
+
+</script>
+
+</body>
+</html>
